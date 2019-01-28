@@ -7,10 +7,21 @@ using namespace std;
 HashTable::HashTable(int size){
 	this->size = size;
 	table.resize(size);
+
+	/*
 	a1 = rand()%257;
 	a2 = rand()%257;
 	a3 = rand()%257;
 	a4 = rand()%257;
+	*/
+	
+	a1 = 10; a2 = 89; a3 = 210; a4 = 162;
+	insertions = 0;
+	deletions = 0;
+
+	collisions = 0;
+	clocation = 0;
+
 }
 
 int HashTable::hash(std::string address){
@@ -20,51 +31,63 @@ int HashTable::hash(std::string address){
   d2 = address.find( ".", d1+1);
   d3 = address.find( ".", d2+1);
   
-  x1 = std::stoi( adress.substr( 0, d1) );
+  x1 = std::stoi( address.substr( 0, d1) );
   x2 = std::stoi( address.substr( d1+1, d2-d1-1) );
   x3 = std::stoi( address.substr( d2+1, d3-d2-1) );
-  x4 = std::stoi( address.substr( d3+1, address.length()-d3-1 ) );
+  x4 = std::stoi( address.substr( d3+1 ) );
 
-  return (a1*x1+a2*x2+a3*x3+a4*x4)%size;
+  return ( ((a1*x4)+(a2*x3)+(a3*x2)+(a4*x1))%257 );
 }
 
-bool HashTable::exists(std::string name){
-	int index = hash(name);
+bool HashTable::exists(std::string address){
+	int index = hash(address);
 	std::list<std::string>::iterator it;
 	for(it = table[index].begin(); it != table[index].end(); it++){
-			if(name.compare(*it) == 0){
+			if(address.compare(*it) == 0){
 				return true;
 			}
 	}
 	return false;
 }
 
-void HashTable::insert(std::string name){
-	if(exists(name)){
-		std::cout << name << " already exists" << std::endl;
-		return;
+void HashTable::insert(std::string address){
+	if(exists(address)){
+	  std::cout << "Error : could not insert " << address << "  because it already exists." << endl;
+	  return;
 	}
-	int index = hash(name);
-	table[index].push_back(name);
-	std::cout << name << " inserted" << std::endl;
+	
+	insertions++;
+	int index = hash(address);
+	table[index].push_back(address);
+	
+	if( table[index].size() > collisions ) {
+	  collisions = table[index].size();
+	  clocation = index;
+	}
+	else if( table[index].size() == collisions && index > clocation ) {
+	  clocation = index;
+	}
+	
+	//std::cout << address << " inserted" << std::endl;
 	return;
 }
 
-void HashTable::remove(std::string name){
-	int index = hash(name);
+void HashTable::remove(std::string address){
+	int index = hash(address);
 	std::list<std::string>::iterator it;
 	for(it = table[index].begin(); it != table[index].end(); it++){
-		if(name.compare(*it) == 0){
+		if(address.compare(*it) == 0){
 			table[index].erase(it);
-			std::cout << name << " deleted" << std::endl;
+			//std::cout << address << " deleted" << std::endl;
+			deletions++;
 			return;
 		}
 	}
-	std::cout << name << " does not exist" << std::endl;
+	std::cout << "Error : could not delete " << address << " because it does not exist." << std::endl;
 	return;
 }
 
-void HashTable::print(){
+void HashTable::print() {
 	for(int i = 0; i < size; i++){
 		std::list<std::string>::iterator it;
 		std::cout << i << ": ";
@@ -75,4 +98,25 @@ void HashTable::print(){
 	}
 }
 
+void HashTable::stat() {
+  cout << a1 << " " << a2 << " " << a3 << " " << a4 << endl;
+  cout << insertions << endl;
+  cout << deletions << endl;
 
+  int emptyslots = 0;
+  int oneitemslots = 0;
+  
+  for( int i = 0; i < size; i++ ) {
+    if( table[i].size() == 0 )
+      emptyslots++;
+  }
+
+  for( int i = 0; i < size; i++ ) {
+    if( table[i].size() == 1 )
+      oneitemslots++;
+  }
+
+  cout << emptyslots << endl;
+  cout << oneitemslots << endl;
+  cout << collisions << " " << clocation << endl;
+}
