@@ -33,6 +33,7 @@ int main(){
 	  
 	}
 
+	//	t.print();
 	return 0;
 
 }
