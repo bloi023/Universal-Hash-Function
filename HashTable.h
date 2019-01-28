@@ -14,4 +14,5 @@ class HashTable {
   std::vector<std::list<std::string>> table;
   int hash( std::string name );
   int size;
+  int a1, a2, a3, a4;
 }
