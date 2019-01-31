@@ -8,14 +8,13 @@ HashTable::HashTable(int size){
 	this->size = size;
 	table.resize(size);
 
-	/*
+	srand( time(0) );
 	a1 = rand()%257;
 	a2 = rand()%257;
 	a3 = rand()%257;
 	a4 = rand()%257;
-	*/
 	
-	a1 = 10; a2 = 89; a3 = 210; a4 = 162;
+	//a1 = 10; a2 = 89; a3 = 210; a4 = 162;
 	insertions = 0;
 	deletions = 0;
 
