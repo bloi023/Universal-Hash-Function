@@ -1,6 +1,8 @@
 CXX = g++
 CXXFLAGS = -Wall -g
 
+all: prog1A prog1B
+
 prog1A: HashTable.o prog1A.o
 	g++ -g prog1A.o HashTable.o -o prog1A
 
