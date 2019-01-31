@@ -16,7 +16,7 @@ class HashTable {
   int hash( std::string name );
   int size;
   int a1, a2, a3, a4;
-
+  
   int insertions, deletions;
   int collisions, clocation;
 };

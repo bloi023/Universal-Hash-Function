@@ -7,7 +7,7 @@ using namespace std;
 HashTable::HashTable(int size){
 	this->size = size;
 	table.resize(size);
-
+	
 	srand( time(0) );
 	a1 = rand()%257;
 	a2 = rand()%257;
