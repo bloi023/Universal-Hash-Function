@@ -10,6 +10,9 @@ prog1B: HashTable2.o prog1B.o
 HashTable.o: HashTable.cpp HashTable.h
 	g++ -g -c HashTable.cpp
 
+HashTable2.o: HashTable2.cpp HashTable2.h
+	g++ -g -c HashTable2.cpp
+
 prog1A.o: prog1A.cpp
 	g++ -g -c prog1A.cpp
 
@@ -17,4 +20,4 @@ prog1B.o: prog1B.cpp
 	g++ -g -c prog1B.cpp
 
 clean:
-	rm *.o -f prog1A 
+	rm *.o -f prog1A prog1B
