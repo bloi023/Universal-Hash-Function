@@ -86,7 +86,7 @@ int HashTable::hash(std::string address){
   int mod = 32%bits;
   int start = 32;
   string temp;
-  int dec, base;
+  long long int dec, base;
   int hashnumber2;
   if( mod == 0 )
     hashnumber2 = 32/bits;
@@ -120,7 +120,7 @@ int HashTable::hash(std::string address){
   
 
   //Hash the Adress
-  int answer = 0;
+  unsigned long long int answer = 0;
   for( int i = 0; i < a.size(); i++ ) {
     answer+= a[i]*h[i];
   }
