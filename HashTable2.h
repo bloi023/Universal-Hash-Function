@@ -17,7 +17,7 @@ class HashTable {
   int hash( std::string name );
   int size;
   int bits;
-  std::vector<int> h;
+  std::vector<unsigned long long int> h;
   int a1, a2, a3, a4;
   
   int insertions, deletions;

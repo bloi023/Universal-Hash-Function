@@ -52,13 +52,14 @@ HashTable::HashTable(int size){
   else
     hashnumber = 32/bits + 1;
 
+  unsigned long long int hashing;
   for(int i = 0; i < hashnumber; i++ ) {
-    h.push_back(rand()%truesize);
+    hashing = rand()%truesize;
+    h.push_back(hashing);
   }
   
   insertions = 0;
   deletions = 0;
-
   collisions = 0;
   clocation = 0;
 }
@@ -86,14 +87,14 @@ int HashTable::hash(std::string address){
   int mod = 32%bits;
   int start = 32;
   string temp;
-  long long int dec, base;
+  unsigned long long int dec, base;
   int hashnumber2;
   if( mod == 0 )
     hashnumber2 = 32/bits;
   else
     hashnumber2 = 32/bits + 1;
 
-  std::vector<int> a;
+  std::vector<unsigned long long int> a;
   for( int i = 0; i < hashnumber2; i++ ) {
     if( i == hashnumber2 - 1 ) {
       if(mod == 0)
@@ -122,7 +123,7 @@ int HashTable::hash(std::string address){
   //Hash the Adress
   unsigned long long int answer = 0;
   for( int i = 0; i < a.size(); i++ ) {
-    answer+= a[i]*h[i];
+    answer += a[i]*h[i];
   }
   return answer%size;
 }
